@@ -30,42 +30,44 @@ def outliers_tukey(data:pd.DataFrame, feature:str, log_scale=False):
     return outliers, cleaned, boundaries
 
 def get_quantity_canceled(data):
-    """Функция для создания признака количества отменённых заказов. 
-    Функция принимает на вход таблицу и возвращает столбец, в котором указано количество отменённого впоследствии товара для кажой транзакции.
-    Если транзакция с отрицательным количеством товара не имеет контрагента, данный признак помечается как NaN.
+    """Returns either number of goods canceled per unique customer or NaN
 
     Args:
-        data (DataFrame): таблица с транзакциями
+        data (DataFrame): dataframe
 
     Returns:
-        Series: столбец с количеством отменённого товара
+        Series: integral number of canceled goods
     """
-    # Инициализируем нулями Series той же длины, что и столбцы таблицы.
+  
     quantity_canceled = pd.Series(np.zeros(data.shape[0]), index=data.index)    
     negative_quantity = data[(data['Quantity'] < 0)].copy()
     for index, col in negative_quantity.iterrows():
-        # Создаём DataFrame из всех контрагентов
+        
+        # get the dataframe of unique customers
         df_test = data[(data['CustomerID'] == col['CustomerID']) &
                        (data['StockCode']  == col['StockCode']) & 
                        (data['InvoiceDate'] < col['InvoiceDate']) & 
                        (data['Quantity'] > 0)].copy()
-        # Транзация-возврат не имеет контрагента — ничего не делаем
+        
+        # the return transaction doesn't have a customer
         if (df_test.shape[0] == 0): 
-            # Помечаем столбец как пропуск
+            # mark as a NaN
             quantity_canceled.loc[index] = np.nan
-        # Транзакция-возврат имеет ровно одного контрагента
-        # Добавляем количество отменённого товара в столбец QuantityCanceled 
+            
+        # the return transaction has one counterparty
         elif (df_test.shape[0] == 1): 
             index_order = df_test.index[0]
             quantity_canceled.loc[index_order] = -col['Quantity']       
-        # Транзакция-возврат имеет несколько контрагентов
-        # Задаём количество отменённого товара в столбец QuantityCanceled для той транзакции на покупку,
-        # в которой количество товара больше количества товаров в транзакции-возврате.
+        
+        # the return transaction has multiple counterparties
         elif (df_test.shape[0] > 1): 
-            df_test.sort_index(axis=0 ,ascending=False, inplace = True)        
+            df_test.sort_index(axis=0 ,ascending=False, inplace = True)
+                    
             for ind, val in df_test.iterrows():
                 if val['Quantity'] < -col['Quantity']: 
                     continue
+                
                 quantity_canceled.loc[ind] = -col['Quantity']
-                break    
+                break  
+              
     return quantity_canceled
