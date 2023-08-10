@@ -29,7 +29,7 @@ def outliers_tukey(data:pd.DataFrame, feature:str, log_scale=False):
     
     return outliers, cleaned, boundaries
 
-def get_quantity_canceled(data):
+def get_quantity_canceled(data:pd.DataFrame)->pd.Series:
     """Returns either number of goods canceled per unique customer or NaN
 
     Args:
