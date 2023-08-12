@@ -27,7 +27,7 @@ The dataset contains information about 541909 different transactions which have 
 
 <center> <img src = "./figures/fig_1.png"  alt="drawing" style="width:400px;"> <img src = "./figures/fig_2.png"  alt="drawing" style="width:400px;"></center>
 
-Analyzing customer revenue distribution by country it can be seen that most transactions are from the UK (82 %); customers from the Netherlands and Ireland generate about 3% each, and other countries returns about 12 % in sum.
+Analyzing customer revenue distribution by country it can be seen that most transactions are from the UK (82 %); customers from the Netherlands and Ireland generate about 3% each, and other countries returns about 12 % in total.
 
 <center> <img src = "./figures/fig_3.png"  alt="drawing" style="width:400px;"> </center>
 
