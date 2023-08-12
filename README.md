@@ -27,38 +27,26 @@ The dataset contains information about 541909 different transactions which have 
 
 <center> <img src = "./figures/fig_1.png"  alt="drawing" style="width:400px;"> <img src = "./figures/fig_2.png"  alt="drawing" style="width:400px;"></center>
 
+
 Analyzing customer revenue distribution by country it can be seen that most transactions are from the UK (82 %); customers from the Netherlands and Ireland generate about 3% each, and other countries returns about 12 % in total.
 
 <center> <img src = "./figures/fig_3.png"  alt="drawing" style="width:400px;"> </center>
 
+Analyzing monthly revenue by country (fig.4) it can be inferred as follows:
+* **the UK**: integral monthly revenue is constantly growing within the year whereas the mean revenue is stable.
+* **the Netherlands**: revenue volume remains stable within the year except April and July, when it dropps to almost 0. On the other hand, mean monthly revenue grows from January to April from 120 to 140 pounds respectively; within the next 2 months it is sharply declining to almost zero though since August it returns to fluctuating around 130 sterlings.
+* **Ireland**: mean revenue is fluctuating around 30 pounds within the year except January and July when it increases in 4 and 2 times respectively.  
+* **France and Germany**: integral and mean revenue trends doesn't change significantly within the year.
 
-The optimal number of clusters was identified using several techniques such as: enertia estimation (fig.1 A), and elbow methods (fig.1 B). The silhouette method indicates that it would be better to spread customers by 3 distinct clusters that is easy to use and understand. In contrast to the silhouette method, clustering by the distortion score and inertia do not clearly shows the optimal number of clusters.
+<center> <img src = "./figures/fig_4.png"  alt="drawing" style="width:1000px;"> </center>
 
+Daily revenue gradually increases from Sunday to Thursday (0.75 and 1.9 million pounds respectively) and dropps to 1.24 million in Friday. Saturday's revenues are not in the dataset which probably means the partnering bank doesn't transfer money that day or the these days are excluded intentionally.
+
+<center> <img src = "./figures/fig_5.png"  alt="drawing" style="width:500px;"> </center>
 
 
 ## Results
-For the bank perspective, it is worth to increase revenue from credit loans. Charges value depends of sum of purchases, as well as of other related factors. Thus two main features were chosen to represent clustering results such as credit limit and Payments. 
-
-To get best results several clustering algorythms were compared: k-means, DBSCAN, agglomerative clustering. DBSCAN, for instance did not recognized distinct clusters since the data is rather evenly distributed within the analyzed features. Unlike DBSCAN, Agglomerative Clustering as well as K-means splitted the data well. The latter method identified 3 clusters of customers  and colored them as follows (fig.3):
-* 0 (green color, on the left bottom corner) - 6209 customers with low credit limit, and payments from low to moderate.
-* 1 (orange color, on the right bottom corner) - 2556 customers with moderate and high credit limits and payments
-- 2 (blue color on the right top corner) - 185 customers with large amount of payments.
-
-<center> <img src = "./figures/fig_3.png"  alt="drawing" style="width:600px;"> </center>
-
-As it can be seen from the fig.3 above, clusters are imbalanced. Thus it is not known whether clusters posses of common dinstinct features  
-
-Customers within the largest 0th segment can be characterized by following features (by descenidg of the feature significance):
-- large purchases and big expenditures
-- borrowing cash against the card's line of credit
-- they rarely repaid borrowed sum on their credit balance
-- their 'MINIMUM_PAYMENTS' amounts are quite large of $ 677 \pm 19347$ of a currency. In case the credit card minimum payments due value is calculated as 5% from the total outstanding amount, borrowers owe some succifient amounts of money to the bank
-- most of users has a positive card balance of $ 936 \pm 19347$, and notably, the balance is updated regularly
-
-In result, the 0th segment represent the most active customers in terms of revenue generation for the bank.
-
-<center> <img src = "./figures/fig_4.png"  alt="drawing" style="width:400px;"> <img src = "./figures/fig_5.png"  alt="drawing" style="width:400px;"> 
-<img src = "./figures/fig_6.png"  alt="drawing" style="width:400px;"> </center> 
+ 
 
 
 ## Project structure
