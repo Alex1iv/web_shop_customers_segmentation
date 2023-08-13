@@ -25,12 +25,13 @@ The project is devoted to clients segmentation for an UK web shop  with several 
 ## Data and methods
 The dataset contains information about 541909 different transactions which have been recorded between the years 2010 and 2011. These transactions, however, include canceled purchases which should be deducted to calculate fair integral value of transactions by customer. In result, the mean customer value is $21 \pm 68 $ sterlings (fig.1). Meanwhile other [encoded events](https://www.kaggle.com/code/fabiendaniel/customer-segmentation/notebook) (fig.2 , table 1) such as shipment expenditures, bank charges, and etc. should not be accounted because they hinder understanding of real purchasing power of clients.
 
-<center> <img src = "./figures/fig_1.png"  alt="drawing" style="width:400px;"> <img src = "./figures/fig_2.png"  alt="drawing" style="width:400px;"></center>
+ 
+<div align="center">  <img src = "./figures/fig_1.png"  alt="drawing" style="width:400px;"> <img src = "./figures/fig_2.png"  alt="drawing" style="width:400px;"> </div>
 
 
 Analyzing customer revenue distribution by country it can be seen that most transactions are from the UK (82 %); customers from the Netherlands and Ireland generate about 3% each, and other countries returns about 12 % in total.
 
-<center> <img src = "./figures/fig_3.png"  alt="drawing" style="width:400px;"> </center>
+<div align="center">  <img src = "./figures/fig_3.png"  alt="drawing" style="width:400px;"> </div>
 
 Analyzing monthly revenue by country (fig.4) it can be inferred as follows:
 * **the UK**: integral monthly revenue is constantly growing within the year whereas the mean revenue is stable.
@@ -38,11 +39,12 @@ Analyzing monthly revenue by country (fig.4) it can be inferred as follows:
 * **Ireland**: mean revenue is fluctuating around 30 pounds within the year except January and July when it increases in 4 and 2 times respectively.  
 * **France and Germany**: integral and mean revenue trends doesn't change significantly within the year.
 
-<center> <img src = "./figures/fig_4.png"  alt="drawing" style="width:1000px;"> </center>
+<div align="center">  <img src = "./figures/fig_4.png"  alt="drawing" style="width:1000px;"> </div>
 
-Daily revenue gradually increases from Sunday to Thursday (0.75 and 1.9 million pounds respectively) and dropps to 1.24 million in Friday. Saturday's revenues are not in the dataset which probably means the partnering bank doesn't transfer money that day or the these days are excluded intentionally.
+Analyzing seasonality by weekday it can be seen that number of daily transactions gradually increases from over 2000 in Sunday to 4000 in Thursday (which gives 0.75 and 1.9 million pounds in revenue respectively) and dropps below 3000 (1.24 million pounds in revenue) on Fridays (fig.5 left). Saturday's revenues are not shown in the dataset which probably means the partnering bank doesn't transfer money that day or the these days are excluded intentionally.
+Average number of transactions by the UK timezone starts from 1 transaction at 6h00 and constantly increases every hour untill 12h00 when it reah about 250 events; though within the next 5 hours the transactions intensity is declining gradually to 75 and then remains stable untill 21h00. Transactions in the late evening and night are absent in the dataset.
 
-<center> <img src = "./figures/fig_5.png"  alt="drawing" style="width:500px;"> </center>
+<div align="center">  <img src = "./figures/fig_5.png"  alt="drawing" style="width:1000px;"> </div>
 
 
 ## Results
