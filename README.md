@@ -41,11 +41,18 @@ Analyzing monthly revenue by country (fig.4) it can be inferred as follows:
 
 <div align="center">  <img src = "./figures/fig_4.png"  alt="drawing" style="width:1000px;"> </div>
 
-Analyzing seasonality by weekday it can be seen that number of daily transactions gradually increases from over 2000 in Sunday to 4000 in Thursday (which gives 0.75 and 1.9 million pounds in revenue respectively) and dropps below 3000 (1.24 million pounds in revenue) on Fridays (fig.5 left). Saturday's revenues are not shown in the dataset which probably means the partnering bank doesn't transfer money that day or the these days are excluded intentionally.
-Average number of transactions by the UK timezone starts from 1 transaction at 6h00 and constantly increases every hour untill 12h00 when it reah about 250 events; though within the next 5 hours the transactions intensity is declining gradually to 75 and then remains stable untill 21h00. Transactions in the late evening and night are absent in the dataset.
+Analyzing seasonality by weekday it can be seen that number of daily transactions gradually increases from over 2000 on Sundays to 4000 on Thursdays (which gives 0.75 and 1.9 million pounds in revenue respectively) and dropps below 3000 (1.24 million pounds in revenue) on Fridays (fig.5 left). Saturday revenues are not shown in the dataset which probably means either the website or its partnering bank doesn't transfer money on theses days.
+
+Average number of transactions starts from 1 transaction at 6h00 (the UK timezone) and constantly increases every hour untill 12h00 when it reah about 250 events; though within the next 5 hours the transactions intensity is declining gradually to 75 and then remains stable untill 21h00. Transactions in the late evening and night are absent in the dataset.
 
 <div align="center">  <img src = "./figures/fig_5.png"  alt="drawing" style="width:1000px;"> </div>
 
+One of widely used marketing methods of customer valuation is the RMF analysis. It characteizes customers by following characteristcs: recency of their last purchase, frequency of purchases, and total monetary value of purchases. To get better clustering results and use maximum of information, values and outliers which exceeding 0.95 quantile were repaced with that boundary. Thus 4329 unique clients were evaluated as shown on the Fig.6:
+* the mean monetary value is $1266 \pm 1476$ pounds which means that customers do relatively expensive purchases. Wide standard deviation implies that customers can be spread by at least 2 groups: low-value and high-value clients. The latter group might consist of commercial companies whereas former might contain more private individual clients.
+* frequency of purchases vary from 1 to more than 10 events per year. It indicates that customers have a propensity to buy products frequently rather than seldom. 
+* recency shows minimal number of days between December 10th and the last client's visit. Half of customers did the purchase within the last 2 months. On the other hand, the mean time lag is about 100 days which proves the popularity of the web shop.
+
+<div align="center">  <img src = "./figures/fig_6.png"  alt="drawing" style="width:800px;"> </div>
 
 ## Results
  
