@@ -66,12 +66,18 @@ To get better clustering results and use maximum of information, values and outl
 
 <div align="center">  <img src = "./figures/fig_6.png"  alt="drawing" style="width:800px;"> </div>
 
-Comparing the clustering metrics by the number of cluster (Fig.7) it was found, that split the  customers population by 3 parts would be the best option because of two main reasons: 
-* this gives maximal uniqueness of clusters by features
+Comparing the clustering metrics by the number of cluster (Fig.7) it was found, that splitting the  customers population by 3 parts would be the best option because of two main reasons: 
+* this gives maximal uniqueness of customer features 
 * further split doesn't lead to better clustering results
 
-<div align="center">  <img src = "./figures/fig_7.png"  alt="drawing" style="width:800px;"> </div>
+<div align="center">  <img src = "./figures/fig_7.png"  alt="drawing" style="width:700px;"> </div>
 
+After calculting optimal number of splits, k-means clustering provides with following results as shown on the Fig.8:
+* **loyalists** - segment in red contains 701 clients with high monetary returns and purchasing frequencies. This segment comprises the most precious clients, generating a decent part of the sales revenue. Most of them did their purchases within the last 2 months. Low cluster density by frequency and monetary value axes indicates at substantially different customer behaviors: some of them buy quarterly and even monthly; other spend over 2,000 pounds. A possible strategy would be to retain these customers.
+* **new comers** - blue-clolored group consists of 1056 customers, who occasionally purchased goods via the platform more than a half year ago say, at the end of 2010th year. Although these clients spent in average $4060 \pm 1388$ pounds, they should be engaged more. This could be done, for instance, by direct emails, suggesting supplement goods for their past purchases. 
+* **dormants** - yelow-colored group of 2572 clients is the most populated. These clients purchased goods about within the last half of the year. Since their mean revenue is $854 \pm 854$ pounds, it would be suggested to offering discounts say by volume.
+
+<div align="center">  <img src = "./figures/fig_8.png"  alt="drawing" style="width:800px;"> </div>
 
 ## Project structure
 
