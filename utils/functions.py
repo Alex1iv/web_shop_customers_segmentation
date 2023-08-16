@@ -8,6 +8,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 from sklearn.preprocessing import MinMaxScaler
 from utils.config_reader import config_reader
+#from itertools import cycle
 
 config = config_reader('../config/config.json')
 random_state =  config.random_state
@@ -123,13 +124,18 @@ def get_clustering_metrics(data:pd.DataFrame, ranges:tuple)->pd.DataFrame:
     return  silhouette_df
 
 
-def plot_cluster_profile(df:pd.DataFrame, n_clusters:int, plot_counter:int=None):
+def plot_cluster_profile(
+    df:pd.DataFrame, 
+    n_clusters:int,
+    colors=None, 
+    plot_counter:int=None):
     """Web diagram for a given number of clusters
 
     Args:
         df (DataFrame): features matrix
         n_clusters (int): number of clusters
-        plot_counter
+        colors (list): sequence of filling colors. In case of 3 clusters, colors = cycle(["#636EFA", "#EF553B","#00CC96"])
+        plot_counter (int): figure id number 
     """
  
     scaler = MinMaxScaler()
@@ -144,6 +150,9 @@ def plot_cluster_profile(df:pd.DataFrame, n_clusters:int, plot_counter:int=None)
             theta=features,  
             fill='toself', # fill
             name=f'Cluster {i}', # cluster
+            fillcolor=colors[i],
+            line_color=colors[i]
+
         ))
      
     fig.update_layout(
