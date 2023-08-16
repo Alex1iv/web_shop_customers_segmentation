@@ -2,9 +2,11 @@
 
 import pandas as pd
 import numpy as np
+import plotly.graph_objs as go
+
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, davies_bouldin_score
-
+from sklearn.preprocessing import MinMaxScaler
 from utils.config_reader import config_reader
 
 config = config_reader('../config/config.json')
@@ -119,3 +121,63 @@ def get_clustering_metrics(data:pd.DataFrame, ranges:tuple)->pd.DataFrame:
     silhouette_df = pd.DataFrame(silhouette_res)
 
     return  silhouette_df
+
+
+def plot_cluster_profile(df:pd.DataFrame, n_clusters:int, plot_counter:int=None):
+    """Web diagram for a given number of clusters
+
+    Args:
+        df (DataFrame): features matrix
+        n_clusters (int): number of clusters
+        plot_counter
+    """
+ 
+    scaler = MinMaxScaler()
+    df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+    features = df.columns
+    
+    fig = go.Figure()
+    for i in range(n_clusters):
+ 
+        fig.add_trace(go.Scatterpolar(
+            r=df_scaled.iloc[i].values, 
+            theta=features,  
+            fill='toself', # fill
+            name=f'Cluster {i}', # cluster
+        ))
+     
+    fig.update_layout(
+        showlegend=True, 
+        autosize=False,
+        width=800,  
+        height=600, 
+    )
+    
+    if plot_counter is not None:
+        
+        fig.update_layout(
+            title=dict(
+                text=f'Fig.{plot_counter} - Customers profile by clusters',
+                x=.5, y=0.05, xanchor='center'),
+            font_size=14,
+            width=800, height=700,
+            margin=dict(l=100, r=60, t=80, b=70)
+        )       
+         
+        fig.write_image(config.path_figures + f'fig_{plot_counter}.png')
+        
+    else:
+        
+        fig.update_layout(
+            title=dict(
+                text=f'Fig.1 - Customers profile by clusters',
+                x=.5, y=0.05, xanchor='center'),
+            font_size=14,
+            width=800, height=700,
+            margin=dict(l=100, r=60, t=80, b=70),
+        )  
+
+
+    fig.show()
+    
+    
