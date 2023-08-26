@@ -1,5 +1,6 @@
 data/webshop_data.zip
 data/preprocessed_webshop_data.zip
+webshop_segmentation.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
