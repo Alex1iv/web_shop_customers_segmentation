@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objs as go
 
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.metrics import silhouette_score, davies_bouldin_score
 from sklearn.preprocessing import MinMaxScaler
 from utils.config_reader import config_reader
@@ -85,15 +85,16 @@ def get_quantity_canceled(data:pd.DataFrame)->pd.Series:
     return quantity_canceled
 
 
-def get_clustering_metrics(data:pd.DataFrame, ranges:tuple)->pd.DataFrame:
+def get_clustering_metrics(data:pd.DataFrame, ranges:tuple, clustering_algorithm:str)->pd.DataFrame:
     """Get following metrics  with k-means algorythm: silhouette, inertia, and davies_bouldin_score (Calculate the extent of cluster uniqueness)
 
     Args:
         X (pd.DataFrame): feature matrix
         ranges (tuple): given range of clusters for an estimation
-
+        clustering_algorithm (str): type of clustering algorithm (either 'Kmeans' or 'AgglomerativeClustering')
+        
     Raises:
-        ValueError: if  ranges does not contain 2 elements
+        ValueError: if ranges does not contain 2 elements
 
 
     Returns:
@@ -102,23 +103,43 @@ def get_clustering_metrics(data:pd.DataFrame, ranges:tuple)->pd.DataFrame:
     if len(ranges) != 2:
         raise ValueError("Ranges must cosist of 2 variables")  
     
-    silhouette_res = {"silhouette": [], "cluster": [], 'inertia':[], 'db_score':[]} 
+    if clustering_algorithm == 'Kmeans':
+        silhouette_res = {"silhouette": [], "cluster": [], 'inertia':[], 'db_score':[]} 
     
-    for cluster_num in range(ranges[0],ranges[1]):
-        # get clustering results to calculate metrics
-        k_means =  KMeans(n_clusters=cluster_num, init='k-means++', 
-                          n_init=10, random_state=random_state).fit(data)
+        for cluster_num in range(ranges[0],ranges[1]):
+            # get clustering results to calculate metrics
+            
+            algorithm =  KMeans(n_clusters=cluster_num, init='k-means++', 
+                            n_init=10, random_state=random_state).fit(data)
 
-        # metrics
-        silhouette = silhouette_score(data, k_means.predict(data))
-        inertia = k_means.inertia_
-        db_score = davies_bouldin_score(data, k_means.labels_)
+            # metrics
+            silhouette = silhouette_score(data, algorithm.labels_)
+            db_score = davies_bouldin_score(data, algorithm.labels_)
+            inertia = algorithm.inertia_
+            
+            silhouette_res["cluster"].append(cluster_num)
+            silhouette_res["silhouette"].append(silhouette)
+            silhouette_res["db_score"].append(db_score)
+            silhouette_res["inertia"].append(inertia)
+            
+    elif clustering_algorithm == 'AgglomerativeClustering':
+        silhouette_res = {"silhouette": [], "cluster": [], 'db_score':[]} 
         
-        silhouette_res["cluster"].append(cluster_num)
-        silhouette_res["silhouette"].append(silhouette)
-        silhouette_res["inertia"].append(inertia)
-        silhouette_res["db_score"].append(db_score)
-        
+        for cluster_num in range(ranges[0],ranges[1]):
+            # get clustering results to calculate metrics
+            algorithm = AgglomerativeClustering(n_clusters=cluster_num).fit(data)
+            
+            # metrics
+            silhouette = silhouette_score(data, algorithm.labels_)
+            db_score = davies_bouldin_score(data, algorithm.labels_)
+            
+            silhouette_res["cluster"].append(cluster_num)
+            silhouette_res["silhouette"].append(silhouette)
+            silhouette_res["db_score"].append(db_score)
+            
+    else:
+        raise ValueError("Clustering method must be either 'Kmeans' or 'AgglomerativeClustering'")  
+    
     silhouette_df = pd.DataFrame(silhouette_res)
 
     return  silhouette_df
