@@ -3,7 +3,7 @@
     "random_state" : 42,
 
     "//": "Model folder",
-    "path_model" : "../models/",
+    "path_models" : "../models/",
     "path_figures" : "../figures/",
     "path_data" : "../data/"
     
